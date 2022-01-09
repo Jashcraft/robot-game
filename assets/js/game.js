@@ -86,6 +86,54 @@ var endGame = function(){
     window.alert("Thank You for playing Robot Gladiators! Come back soon!");
   }
 };
+
+var shop = function() {
+  // ask the player what they would like to do
+  var shopOptionPrompt = window.prompt(
+    "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+  );
+  switch (shopOptionPrompt) {
+    case "REFILL":
+    case "refill":
+      if (playerMoney >= 7)  {
+      window.alert("Refilling player's health by 20 for 7 dollars.");
+      //increase health and decrease money
+      playerHealth = playerHealth +20;
+      playerMoney = playerMoney -7;
+      }
+
+      else {
+        window.alert("you don't have neough money! ... Fucker.")
+      }
+      break;
+    
+    case "UPGRADE":
+    case "upgrade":
+      if (playerMoney >= 4) {
+      window.alert("Upgrading player's attack by 6 for 7 dollars.");
+
+      //increase attack / remove money 
+      playerAttack = playerAttack +12;
+      playerMoney = playerMoney -4;
+      }
+      else {
+        window.alert("You don't have enough money! ...Fucker");
+      }
+      break;
+    case "LEAVE":
+    case "leave":
+      window.alert("Leaving the Store!");
+      // does nothing ending the funciton 
+      default:
+        window.alert("You did not pick a valid option. Try again.");
+        shop();
+        break;
+    
+  }
+}
+
+
+
   // function to start a new game
   var startGame = function() {
     //reset player stats
@@ -103,10 +151,18 @@ for(var i = 0; i < enemyNames.length; i++) {
         enemyHealth = 50;
 
         //use debugger to pause script from running and check whats going on 
-        debugger;
+        //debugger;
 
         //pass picked enemy na,e variables value into the fight function 
         fight(pickedEnemyName);
+
+        // if we're not fighting the last enemy
+        if (playerHealth > 0 && i < enemyNames.length -1 ) {
+          var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+          if (storeConfirm) {
+            shop();
+          }
+        }
     }
 
     else {
