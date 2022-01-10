@@ -7,7 +7,6 @@ var randomNumber = function (min, max) {
 
 var getPlayerName = function () {
   name = "";
-
   // loop here 
   while (name === "" || name === null) {
     name = prompt("What is your robots name ?");
@@ -159,6 +158,21 @@ var endGame = function () {
     window.alert("You've lost your robot in battle.");
   }
 
+var highScore = localStorage.getItem("highscore");
+  if (highScore === null ) {
+    highScore = 0;
+  }
+
+  if (playerInfo.munnie > highScore) {
+    localStorage.setItem("highScore", playerInfo.munnie);
+    localStorage.setItem("name", playerInfo.name);
+    alert(playerInfo.name + " now has the highscore of " + playerInfo.munnie);
+  }
+  else {
+    alert(playerInfo.name + " did not beat the highscore of " + highScore + " maybe next time!" );
+  }
+
+
   // ask player if they'd like to play again 
   var playAgainConfirm = window.confirm("Would you like to play again");
   if (playAgainConfirm) {
@@ -208,7 +222,7 @@ var startGame = function () {
   for (var i = 0; i < enemyInfo.length; i++) {
     if (playerInfo.health > 0) {
       window.alert("Welcome To Robot Gladiators! Round " + (i + 1));
-
+       // debugger;
       // pick new enemy to fight based on the index of enemy names array
       var pickedEnemyObj = enemyInfo[i];
 
